@@ -1,0 +1,44 @@
+div.container {
+  padding: 2.5px;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+}
+
+div.container img {
+  width: 40vw;
+  border-radius: 14px;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio]:checked + label img {
+  box-shadow: 0 0 0 5px rgb(255, 0, 0);
+}
+
+div.choiceButton.input[type=button] {
+  width: 40%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* 画像のスタイル */
+.tierImage {
+  max-width: 100px;
+  max-height: 100px;
+}

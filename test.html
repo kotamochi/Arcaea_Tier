@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier List</title>
+    <style>
+        /* テーブルのスタイル */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* 画像のスタイル */
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tier List</h1>
+    <table id="tierTable">
+        <tr>
+            <th>Tier</th>
+            <th>Images</th>
+        </tr>
+    </table>
+
+    <script>
+        // データを取得
+        var data = {
+            "S": {
+                "0": "https://cdn.wikiwiki.jp/to/w/arcaea/Grievous Lady/::ref/Grievous Lady.jpg.webp",
+                "1": "https://cdn.wikiwiki.jp/to/w/arcaea/SAIKYO STRONGER/::ref/SAIKYO STRONGER.jpg.webp",
+                "2": "https://cdn.wikiwiki.jp/to/w/arcaea/PRAGMATISM/::ref/PRAGMATISM-b.jpg.webp",
+                "3": "https://cdn.wikiwiki.jp/to/w/arcaea/Arcana Eden/::ref/Arcana Eden.jpg.webp",
+                "4": "https://cdn.wikiwiki.jp/to/w/arcaea/Arghena/::ref/Arghena.jpg.webp",
+                "5": "https://cdn.wikiwiki.jp/to/w/arcaea/Vicious Heroism/::ref/Vicious Heroism-b.jpg.webp"
+            },
+            "A+": {
+                "0": "https://cdn.wikiwiki.jp/to/w/arcaea/Fracture Ray/::ref/Fracture Ray.jpg.webp",
+                "1": "https://cdn.wikiwiki.jp/to/w/arcaea/Tempestissimo/::ref/Tempestissimo-b.jpg.webp",
+                "2": "https://cdn.wikiwiki.jp/to/w/arcaea/Aegleseeker/::ref/Aegleseeker.jpg.webp",
+                "3": "https://cdn.wikiwiki.jp/to/w/arcaea/World Ender/::ref/World Ender.jpg.webp",
+                "4": "https://cdn.wikiwiki.jp/to/w/arcaea/Pentiment/::ref/Pentiment.jpg.webp",
+                "5": "https://cdn.wikiwiki.jp/to/w/arcaea/Abstruse Dilemma/::ref/Abstruse Dilemma.jpg.webp",
+                "6": "https://cdn.wikiwiki.jp/to/w/arcaea/Testify/::ref/Testify.jpg.webp"
+            }
+        };
+
+        // テーブルを構築
+        var table = document.getElementById("tierTable");
+
+        for (var tier in data) {
+            if (data.hasOwnProperty(tier)) {
+                var row = table.insertRow();
+                var tierCell = row.insertCell(0);
+                var imageCell = row.insertCell(1);
+
+                tierCell.innerHTML = tier;
+                var images = Object.values(data[tier]);
+                for (var i = 0; i < images.length; i++) {
+                    var img = document.createElement('img');
+                    img.src = images[i];
+                    imageCell.appendChild(img);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
