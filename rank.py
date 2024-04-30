@@ -1,9 +1,8 @@
 import json
 import pandas as pd
-import asyncio
 import random
 
-async def create_data(name, level):
+def create_data(name, level):
     """データを作成する"""
     #指定されたレベルのデータを取得する
     df = pd.read_csv("./data/Arcaea_Music_Data.csv", encoding="utf-8")
@@ -22,7 +21,7 @@ async def create_data(name, level):
     return data.to_csv(f"./data/temp/{str_level}/{name}_datas.csv", index=False, encoding="utf-8")
 
 
-async def get_music(name, level):
+def get_music(name, level):
     """ランダムで楽曲を二曲取得する"""
     #データを取得
     df = pd.read_csv(f"./data/temp/{level}/{name}_datas.csv", encoding="utf-8")
@@ -80,13 +79,13 @@ async def get_music(name, level):
     return choice[0][0], choice[0][1], choice[1][0], choice[1][1]
 
 
-async def set_point(name, level, serect_music, non_serect_music, point):
+def set_point(name, level, serect_music, non_serect_music, point):
     #データを取得
     df = pd.read_csv(f"./data/temp/{level}/{name}_datas.csv", encoding="utf-8")
     
     #ポイント処理とフラグを立てる
-    df = await point_flg(df, serect_music, point)
-    df = await point_flg(df, non_serect_music, 0)
+    df = point_flg(df, serect_music, point)
+    df = point_flg(df, non_serect_music, 0)
     
     #一周まわったか確認
     df_len = len(df[df["Flag"] == False]) #まだ選ばれてないものを取得
@@ -119,7 +118,7 @@ async def set_point(name, level, serect_music, non_serect_music, point):
         return False
     
 
-async def point_flg(df, music, point):
+def point_flg(df, music, point):
     #表示済みフラグを付与
     df.loc[df[df["Music_Title"] == music].index, "Flag"] = True
     
@@ -141,7 +140,7 @@ async def point_flg(df, music, point):
     return df
             
 
-async def show_result(name, level):
+def show_result(name, level):
     #データを取得して並び替える
     df = pd.read_csv(f"./data/temp/{level}/{name}_datas.csv", encoding="utf-8")
     

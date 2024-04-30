@@ -46,15 +46,16 @@
                 <p id="image_name2"></p>
             </label>
         </div>
-
-        <br><br>
-        <h3>画像をクリックして下のボタンを押すことで、進行します。</h3>
-
-        <input type="button" class="choiceButton" id="up+2" value="かなり強い">
-        <input type="button" class="choiceButton" id="up+1" value="強い">
+        <div class="choiceButton">
+            <input type="button" id="up+2" value="かなり強い">
+            <input type="button" id="up+1" value="強い">
+        </div>
+        <br>
+        <h3>画像をクリックし、ボタンを押すことで進行します。</h3>
+        <br>
     </div>
 
-    <input type="button" id="result_button" value="結果を出力する" style="display: none;">
+    <input type="button" class="result_button" id="result_button" value="結果を出力する" style="display: none;"><br>
 
     <div id="resultArea" style="display: none;">
         <h1>Tier List</h1>
@@ -122,19 +123,24 @@
             document.getElementById("image2").src = dict["img2"];
             document.getElementById("image_name2").textContent = dict["name2"];
             document.getElementById("img_2").value = dict["name2"];
+
+            // ボタン無効化解除
+            document.getElementById("up+2").disabled = false;
+            document.getElementById("up+1").disabled = false;
         }
 
         function result_game(dict) {
             // Tierリスト表示ボタンを表示する
             document.getElementById("result_button").style.display = "block";
             // ボタンを無効化
-            document.getElementById("up+2").disabled = true;
-            document.getElementById("up+1").disabled = true;
             document.getElementById("img_1").disabled = true;
             document.getElementById("img_2").disabled = true;
         }
 
         function show_ranking(data) {
+            // ボタンを無効化
+            document.getElementById("result_button").disabled = true;
+
             // テーブルを構築
             var table = document.getElementById("tierTable");
 
@@ -156,16 +162,32 @@
             }
             // Tierリストを表示
             document.getElementById("resultArea").style.display = "block";
+            // 下にスクロール
+            window.scrollBy(0,800);
         }
 
         // 以下は仮の例です。実際のゲームロジックに応じて変更する必要があります。
         document.getElementById("up+2").addEventListener("click", function() {
+            // ボタンを無効化
+            document.getElementById("up+2").disabled = true;
+            document.getElementById("up+1").disabled = true;
+            
             // 選択されたデータを取得
             let data
             data = decision();
-            console.log(data);
             // point +2にする
             const point = 2
+
+            // データが取れているか確認
+            if (data[2] == undefined) {
+                // ボタンを無効化を解除
+                document.getElementById("up+2").disabled = false;
+                document.getElementById("up+1").disabled = false;
+                alert("曲を選択してください!");
+                return
+            } else {
+                ;
+            }
             
             // python関数を実行
             $.ajax({url: "/choice",  // Flaskのエンドポイント
@@ -189,11 +211,26 @@
         });
 
         document.getElementById("up+1").addEventListener("click", function() {
+            // ボタンを無効化
+            document.getElementById("up+2").disabled = true;
+            document.getElementById("up+1").disabled = true;
+
             // 選択されたデータを取得
             let data
             data = decision();
             // point +1にする
             const point = 1
+
+            // データが取れているか確認
+            if (data[2] == undefined) {
+                // ボタンを無効化を解除
+                document.getElementById("up+2").disabled = false;
+                document.getElementById("up+1").disabled = false;
+                alert("曲を選択してください!");
+                return
+            } else {
+                ;
+            }
             
             // python関数を実行
             $.ajax({url: "/choice",  // Flaskのエンドポイント

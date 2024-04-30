@@ -18,8 +18,26 @@ input[type=radio]:checked + label img {
   box-shadow: 0 0 0 5px rgb(255, 0, 0);
 }
 
-.choiceButton {
-  width: 40%;
+div.choiceButton {
+  padding: 2.5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+div.choiceButton input[type=button] {
+  width: 20%;
+  height: 5vh;
+  border-radius: 100vh;
+  margin: 0 2%
+}
+
+.result_button {
+  width: 25vw;
+  height: 3vh;
+  border-radius: 100vh;
+  text-align:center;
+  justify-content: center;
 }
 
 table {
@@ -28,17 +46,16 @@ table {
 }
 
 th, td {
-  border: 1px solid #dddddd;
+  border: 1px solid #161616;
   text-align: left;
   padding: 8px;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #f0f0f0;
 }
 
 /* 画像のスタイル */
 .tierImage {
-  max-width: 100px;
-  max-height: 100px;
+  width: 10vw;
 }

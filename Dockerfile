@@ -1,21 +1,7 @@
-#FROM python:3.10-slim
-#
-#ENV PYTHONUNBUFFERED True
-#
-#ENV APP_HOME /app
-#WORKDIR $APP_HOME
-#COPY . ./
-#
-#RUN pip install --no-cache-dir -r requirements.txt
-#
-#CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
-
-
-#ローカル用
 # Pythonランタイムを親イメージとして使用
-FROM python:3.11
+FROM python:3.11-alpine
 
-# 作業ディレクトリを/appに設定
+# 作業ディレクトリを設定
 WORKDIR /Arcaea_Tier
 
 # 現在のディレクトリの内容をコンテナ内の/appにコピー
