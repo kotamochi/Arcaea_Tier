@@ -11,7 +11,8 @@
     <h1>Arcaea難易度表作成</h1>
     <div id="Explain_text">
         <p>二択の選択問題を繰り返す事で自身が考える階級分けされた難易度を出力するサイトです。</p>
-        <p>名前と難易度を入力して開始を押すことで、選択問題が始まります。</p><br>
+        <p>名前と難易度を入力して開始を押すことで、選択問題が始まります。</p>
+        <p class="red">＊固まってしまった場合はページをリロードし、名前と難易度を同じにすることで再開できます</p><br>
     </div>
     <form name="StartForm" id="StartForm">
         <label for="namebox">名前:</label>
@@ -91,6 +92,8 @@
             }).done(function(respon) {
                 // サーバーからのレスポンスを処理
                 var dict = JSON.parse(respon);
+                // 途中再開した場合は知らせる
+                continue_disp(dict);
                 // 画像と楽曲名を表示
                 next_game(dict);
                 // gameAreaを表示する
@@ -113,6 +116,15 @@
 
             // 名前、難易度、選択楽曲を返す
             return [name, level, selected_music, non_selected_music];
+        }
+
+        function continue_disp(dict) {
+            // 途中再開であるか確認
+            if (dict["continue"] == true) {
+                alert("前回の続きから再開します。");
+            } else {
+                ;
+            }
         }
         
         function next_game(dict) {

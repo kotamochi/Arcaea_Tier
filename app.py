@@ -21,21 +21,33 @@ def start_game():
     except FileExistsError: #既にある時は飛ばす
         pass
     
+    #ユーザーデータを読み込み
     with open("./data/user.json", mode="r", encoding="utf-8") as f:
         Users = json.load(f)
         
-    user = {"level":level, "counter":0}
-    Users[f"{name}"] = user
+    #同じユーザーが直近に同じレベルで行ってた時は、途中から再開する
+    if name in Users and level in Users[f"{name}"]["level"] and 4 != Users[f"{name}"]["counter"]:
+        #途中再開フラグを立てる
+        is_continue = True
+        pass
+    else:
+        #途中再開フラグを設定
+        is_continue = False
+        #ユーザーデータ作成
+        user = {"level":level, "counter":0}
+        Users[f"{name}"] = user
     
-    with open("./data/user.json", mode="w", encoding="utf-8") as f:
-        json.dump(Users, f, indent=4, ensure_ascii=False)
-    #データの一時ファイルを作成
-    rank.create_data(name, level)
+        with open("./data/user.json", mode="w", encoding="utf-8") as f:
+            json.dump(Users, f, indent=4, ensure_ascii=False)
+            
+        #データの一時ファイルを作成
+        rank.create_data(name, level)
 
     #楽曲を2曲取得
     name1, img1, name2, img2 = rank.get_music(name, level)
 
-    response_data = {"img1":img1,
+    response_data = {"continue":is_continue,
+                     "img1":img1,
                      "name1":name1,
                      "img2":img2,
                      "name2":name2

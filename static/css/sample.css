@@ -5,6 +5,10 @@ div.container {
   justify-content: space-around;
 }
 
+.red {
+  color: red;
+}
+
 div.container img {
   width: 40vw;
   border-radius: 14px;
