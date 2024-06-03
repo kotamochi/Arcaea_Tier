@@ -71,9 +71,21 @@ def get_music(name, level):
         #乱数から選ばれた楽曲を抽出
         hit_music = df_comp.iloc[rand]
 
-        #結果を保存
+        #結果を取得
         title = hit_music["Music_Title"]
         image = hit_music["Image"]
+        #曲名に難易度表記をつける(BYDとETRのみ)
+        if pd.isnull(hit_music["FTR_Level"]):
+            if pd.isnull(hit_music["BYD_Level"]):
+                #BYDにレベルがないならETR
+                title = title + "(ETR)"
+            elif pd.isnull(hit_music["ETR_Level"]):
+                #ETRに表記がないならBYD
+                title = title + "(BYD)"
+        else:
+            pass
+
+        #結果を保存
         choice.append([title, image])
 
     return choice[0][0], choice[0][1], choice[1][0], choice[1][1]
@@ -83,6 +95,14 @@ def set_point(name, level, serect_music, non_serect_music, point):
     #データを取得
     df = pd.read_csv(f"./data/temp/{level}/{name}_datas.csv", encoding="utf-8")
     
+    #曲名から難易度表記を取る
+    if serect_music[-5:] == "(ETR)" or serect_music[-5:] == "(BYD)":
+        #難易度表記だけを切り捨てる
+        serect_music = serect_music[:-5]
+    if non_serect_music[-5:] == "(ETR)" or non_serect_music[-5:] == "(BYD)":
+        #難易度表記だけを切り捨てる
+        non_serect_music = non_serect_music[:-5]
+
     #ポイント処理とフラグを立てる
     df = point_flg(df, serect_music, point)
     df = point_flg(df, non_serect_music, 0)
